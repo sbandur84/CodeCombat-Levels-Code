@@ -1,8 +1,8 @@
 # playground BOUNDS ----------------------------------------------
-maxX = 65
-maxY = 115
-minX = 10
-minY = 10
+maxX = 75
+maxY = 125
+minX = 0
+minY = 0
 # ----------------------------------------------------------------
 def Go(where, dist):
     x = self.pos.x
@@ -25,17 +25,38 @@ def Go(where, dist):
         elif where == "LEFT":
             self.moveXY(x-dist, y)   
             
-def EnemyRelativePos(enemy):
+def AwayFromEnemyRelativePos(enemy):
     where = ""
     if enemy:
         ex = enemy.pos.x
         ey = enemy.pos.y
         x = self.pos.x
         y = self.pos.y
+        # enemy is DOWN_LEFT
         if ex < x and ey < y:
-            where = "BOTTOM_LEFT"
-        elif 
-        
+            where = "UP_RIGHT"
+        # enemy is DOWN_RIGHT
+        elif ex > x and ey < y:
+            where = "UP_LEFT"
+        # enemy is UP_RIGHT
+        elif ex > x and ey > y:
+            where = "DOWN_LEFT"
+        # enemy is UP_LEFT
+        elif ex < x and ey > y:
+            where = "DOWN_RIGHT"
+        # enemy is UP
+        elif ex == x and ey > y:
+            where = "DOWN"
+        # enemy is DOWN
+        elif ex == x and ey < y:
+            where = "UP"
+        # enemy is RIGHT
+        elif ex > x and ey == y:
+            where = "LEFT"
+        # enemy is LEFT
+        elif ex < x and ey == y:
+            where = "RIGHT"
+    return where
 
 def AttEdge(what, offset):
     x = what.pos.x
@@ -57,49 +78,37 @@ def AttEdge(what, offset):
             return "BOTTOM_RIGHT"
         elif y < minY + offset:
             return "BOTTOM"
+    else:
+        return 0
 # walk around room
-def WalkAround(distance):
+def WalkAround(dist):
     myX = self.pos.x
     myY = self.pos.y
     # premikamo se po polju
     if AttEdge(self, 10) == "BOTTOM_LEFT" or AttEdge(self, 10) == "LEFT_EDGE":
         # move up
-        self.moveXY(myX, myY + distance)
+        Go("UP", dist)
     elif AttEdge(self, 10) == "TOP_LEFT" or AttEdge(self, 10) == "TOP":
         # move right
-        self.moveXY(myX + distance, myY)
+        Go("RIGHT", dist)
     elif AttEdge(self, 10) == "TOP_RIGHT" or AttEdge(self, 10) == "RIGHT_EDGE":
         # move down
-        self.moveXY(myX, myY - distance)
+        Go("DOWN", dist)
     elif AttEdge(self, 10) == "BOTTOM_RIGHT" or AttEdge(self, 10) == "BOTTOM":
         # move left
-        self.moveXY(myX - distance, myY)
+        Go("LEFT", dist)
 
-def AvoidHow(enemy):
-    ex = enemy.pos.x
-    ey = enemy.pos.y
-    x = self.pos.x
-    y = self.pos.y
 
-def runFrom(enemy):
-    distance = 20
+def runFrom(enemy, distance):
     x = enemy.pos.x
     y = enemy.pos.y
     myX = self.pos.x
     myY = self.pos.y
     if enemy:
         #beži od sovražnika
-        if x < maxX/2 and y < maxY/2:
-            self.moveXY(myX + distance, myY + distance)
-        if x > maxX/2 and enemy.pos.y < maxY/2:
-            self.moveXY(myX - distance, myY + distance)
-        if enemy.pos.x < maxX/2 and y > maxY/2:
-            self.moveXY(myX + distance, myY - distance)
-        if enemy.pos.x > maxX/2 and y > maxY/2:    
-            self.moveXY(myX - distance, myY - distance)
-    else:
+        Go(AwayFromEnemyRelativePos(enemy))
+    elif AttEdge(self, 15):
         WalkAround(distance)
-        
         
         
 
