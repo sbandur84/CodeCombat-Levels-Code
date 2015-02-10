@@ -1,9 +1,107 @@
 # playground BOUNDS ----------------------------------------------
-maxX = 67
+maxX = 65
 maxY = 115
 minX = 10
 minY = 10
 # ----------------------------------------------------------------
+def Go(where, dist):
+    x = self.pos.x
+    y = self.pos.y
+    if where:
+        if where == "UP":
+            self.moveXY(x, y+dist)
+        elif where == "UP_LEFT":
+            self.moveXY(x-dist, y+dist)
+        elif where == "UP_RIGHT":
+            self.moveXY(x+dist, y+dist)
+        elif where == "DOWN":
+            self.moveXY(x, y-dist)
+        elif where == "DOWN_LEFT":
+            self.moveXY(x-dist, y-dist)
+        elif where == "DOWN_RIGHT":
+            self.moveXY(x+dist, y-dist)
+        elif where == "RIGHT":
+            self.moveXY(x+dist, y)        
+        elif where == "LEFT":
+            self.moveXY(x-dist, y)   
+            
+def EnemyRelativePos(enemy):
+    where = ""
+    if enemy:
+        ex = enemy.pos.x
+        ey = enemy.pos.y
+        x = self.pos.x
+        y = self.pos.y
+        if ex < x and ey < y:
+            where = "BOTTOM_LEFT"
+        elif 
+        
+
+def AttEdge(what, offset):
+    x = what.pos.x
+    y = what.pos.y
+    if what:
+        if y < minY + offset and x < minX + offset:
+            return "BOTTOM_LEFT"
+        elif x < minX + offset:
+            return "LEFT_EDGE"
+        elif x < minX + offset and y > maxY - offset:
+            return "TOP"
+        elif y > maxY - offset:
+            return "TOP_EDGE"
+        elif y > maxY - offset and x > maxX - offset:
+            return "TOP_RIGHT"
+        elif x > maxX - offset:
+            return "RIGHT_EDGE"
+        elif x > maxX - offset and y < minY + offset:
+            return "BOTTOM_RIGHT"
+        elif y < minY + offset:
+            return "BOTTOM"
+# walk around room
+def WalkAround(distance):
+    myX = self.pos.x
+    myY = self.pos.y
+    # premikamo se po polju
+    if AttEdge(self, 10) == "BOTTOM_LEFT" or AttEdge(self, 10) == "LEFT_EDGE":
+        # move up
+        self.moveXY(myX, myY + distance)
+    elif AttEdge(self, 10) == "TOP_LEFT" or AttEdge(self, 10) == "TOP":
+        # move right
+        self.moveXY(myX + distance, myY)
+    elif AttEdge(self, 10) == "TOP_RIGHT" or AttEdge(self, 10) == "RIGHT_EDGE":
+        # move down
+        self.moveXY(myX, myY - distance)
+    elif AttEdge(self, 10) == "BOTTOM_RIGHT" or AttEdge(self, 10) == "BOTTOM":
+        # move left
+        self.moveXY(myX - distance, myY)
+
+def AvoidHow(enemy):
+    ex = enemy.pos.x
+    ey = enemy.pos.y
+    x = self.pos.x
+    y = self.pos.y
+
+def runFrom(enemy):
+    distance = 20
+    x = enemy.pos.x
+    y = enemy.pos.y
+    myX = self.pos.x
+    myY = self.pos.y
+    if enemy:
+        #beži od sovražnika
+        if x < maxX/2 and y < maxY/2:
+            self.moveXY(myX + distance, myY + distance)
+        if x > maxX/2 and enemy.pos.y < maxY/2:
+            self.moveXY(myX - distance, myY + distance)
+        if enemy.pos.x < maxX/2 and y > maxY/2:
+            self.moveXY(myX + distance, myY - distance)
+        if enemy.pos.x > maxX/2 and y > maxY/2:    
+            self.moveXY(myX - distance, myY - distance)
+    else:
+        WalkAround(distance)
+        
+        
+        
 
 # returns NUMBER of ENEMIES at given distance --------------------
 def enemiesAtDistance(dist):
@@ -16,56 +114,7 @@ def enemiesAtDistance(dist):
 # ----------------------------------------------------------------
 
 
-def runFrom(enemy):
-    distance = 20
-    x = enemy.pos.x
-    y = enemy.pos.y
-    myX = self.pos.x
-    myY = self.pos.y
-    # premikamo se po polju
-    #smo na levem robu
-    if myX - distance < minX:
-        # če smo gori gre desno
-        if myY + distance > maxY:
-            self.moveXY(myX + distance, myY)
-        # ali gor
-        else:
-            self.moveXY(myX, myY + distance)
-    # pri zgornji
-    elif myY + distance > maxY:
-        # če smo že desno pojdi dol
-        if myX + distance > maxX:
-            self.moveXY(myX, myY - distance)
-        # ali desno
-        else:
-            self.moveXY(myX + distance, myY)
-    # pri desni
-    elif myX + distance > maxX:
-        # če smo spodaj idi levo
-        if myY - distance < minY:
-            self.moveXY(myX - distance, myY)
-        # ali dol
-        else:
-            self.moveXY(myX, myY - distance)
-    # pri spodnji
-    elif myY - distance < minY:
-        # če smo levo idi gor
-        if myX - distance < minX:
-            self.moveXY(myX, myY + distance)
-        # ali levo
-        else:
-            self.moveXY(myX - distance, myY)
-    else:
-        #beži od sovražnika
-        if x < maxX/2 and y < maxY/2:
-            self.moveXY(myX + distance, myY + distance)
-        if x > maxX/2 and enemy.pos.y < maxY/2:
-            self.moveXY(myX - distance, myY + distance)
-        if enemy.pos.x < maxX/2 and y > maxY/2:
-            self.moveXY(myX + distance, myY - distance)
-        if enemy.pos.x > maxX/2 and y > maxY/2:    
-            self.moveXY(myX - distance, myY - distance)
-            
+
 def Kill(e):
     if e:
         while e.health > 0:
