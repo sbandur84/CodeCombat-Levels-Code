@@ -1,7 +1,11 @@
+# playground BOUNDS ----------------------------------------------
 maxX = 67
 maxY = 115
 minX = 10
 minY = 10
+# ----------------------------------------------------------------
+
+# returns NUMBER of ENEMIES at given distance --------------------
 def enemiesAtDistance(dist):
     n = 0
     ene = self.findEnemies()
@@ -9,6 +13,8 @@ def enemiesAtDistance(dist):
         if self.distanceTo(en) < dist:
             n=n+1
     return n
+# ----------------------------------------------------------------
+
 
 def runFrom(enemy):
     distance = 20
