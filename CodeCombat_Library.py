@@ -33,7 +33,7 @@ def GetEdge(offset, minX, minY, maxX, maxY):
         return 0
         
 
-def AwayFromEnemyRelativePos(enemy):
+def GoAwayFromEnemyRelativePos(enemy):
     where = ""
     if enemy:
         ex = enemy.pos.x
@@ -145,16 +145,16 @@ def WalkAround(dist, edge):
         Go("UP", dist, edge)
 
 
-def runFrom(enemy, distance):
-    if AttEdge(self, distance):
-        WalkAround(distance)
+def RunFrom(enemy, distance, edge):
+    if edge:
+        WalkAround(distance, edge)
     elif enemy:
         #beži od sovražnika
-        Go(AwayFromEnemyRelativePos(enemy), distance)       
+        Go(GoAwayFromEnemyRelativePos(enemy), distance, edge)       
         
 
 # returns NUMBER of ENEMIES at given distance --------------------
-def numEnemiesAtDistance(dist, etype):
+def NumEnemiesAtDistance(dist, etype):
     n = 0
     ene = self.findEnemies()
     for en in ene:
@@ -167,13 +167,31 @@ def numEnemiesAtDistance(dist, etype):
     return n
 # ----------------------------------------------------------------
 
-# returns NUMBER of ENEMIES at given distance --------------------
-def getEnemiesAtDistance(dist, etype):
+# returns ARRAY of ENEMIES at given distance --------------------
+def GetEnemiesAtDistance(dist, etype):
     enemies = 0
     i = 0
     ene = self.findEnemies()
     for en in ene:
         if self.distanceTo(en) < dist:
+            if etype:
+                if en.type == etype:
+                    enemies[i]=en
+                    i=i+1
+            else:
+                enemies[i]=en
+                i=i+1
+    return enemies
+# ----------------------------------------------------------------
+
+
+# returns ARRAY of ENEMIES in bounds
+def GetEnemiesAtBounds(dist, etype, minX, minY, maxX, maxY):
+    enemies = 0
+    i = 0
+    ene = self.findEnemies()
+    for en in ene:
+        if IsInBounds(en, minX,minY,maxX,maxY):
             if etype:
                 if en.type == etype:
                     enemies[i]=en
