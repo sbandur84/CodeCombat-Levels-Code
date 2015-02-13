@@ -154,7 +154,7 @@ def runFrom(enemy, distance):
         
 
 # returns NUMBER of ENEMIES at given distance --------------------
-def enemiesAtDistance(dist, etype):
+def numEnemiesAtDistance(dist, etype):
     n = 0
     ene = self.findEnemies()
     for en in ene:
@@ -165,6 +165,23 @@ def enemiesAtDistance(dist, etype):
             else:
                 n=n+1
     return n
+# ----------------------------------------------------------------
+
+# returns NUMBER of ENEMIES at given distance --------------------
+def getEnemiesAtDistance(dist, etype):
+    enemies = 0
+    i = 0
+    ene = self.findEnemies()
+    for en in ene:
+        if self.distanceTo(en) < dist:
+            if etype:
+                if en.type == etype:
+                    enemies[i]=en
+                    i=i+1
+            else:
+                enemies[i]=en
+                i=i+1
+    return enemies
 # ----------------------------------------------------------------
 
 def Kill(e):
