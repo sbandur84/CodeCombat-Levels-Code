@@ -212,14 +212,22 @@ def Kill(e):
             self.attack(e)
         
     
-    
-    
+def Cleave(e, minNumToCleave):   
+    while e.health > 0:
+        numE = NumEnemiesAtDistance(10,0) + 1
+        if self.isReady("cleave") and minNumToCleave < numE:
+            self.cleave(e) 
+        else:
+            self.attack(e)
 
 
 loop:
-    shamans = GetEnemiesAtDistance(30,"shaman")
-    for s in shamans:
-        Kill(s)
     enemies = GetEnemiesAtDistance(30,0)
     for e in enemies:
-        Kill(e)
+        if e.type == "shaman":
+            Cleave(e, 2)
+        elif e.type == "ogre":
+            Cleave(e,2)
+        else:
+            Cleave(e,3)
+    IsInBounds(self, 12,17,40,122, GetEnemiesAtDistance(30,0))
