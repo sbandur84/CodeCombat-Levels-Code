@@ -74,49 +74,49 @@ def GoAwayFromEnemyRelativePos(enemy):
 def Go(where, dist, edge):
     if where:
         if where == "UP":
-            if edge == "TOP_EDGE"
+            if edge == "TOP_EDGE":
                 Go("DOWN", dist, edge)
             x = self.pos.x
             y = self.pos.y+dist
             self.moveXY(x, y)
         elif where == "UP_LEFT":
-            if edge == "TOP_LEFT"
+            if edge == "TOP_LEFT":
                 Go("DOWN_RIGHT", dist, edge)
             x = self.pos.x - dist
             y = self.pos.y + dist
             self.moveXY(x, y)
         elif where == "UP_RIGHT":
-            if edge == "TOP_RIGHT"
+            if edge == "TOP_RIGHT":
                 Go("DOWN_LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y+dist
             self.moveXY(x, y)
         elif where == "DOWN":
-            if edge == "BOTTOM"
+            if edge == "BOTTOM":
                 Go("UP", dist, edge)
             x = self.pos.x
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "DOWN_LEFT":
-            if edge == "BOTTOM_LEFT"
+            if edge == "BOTTOM_LEFT":
                 Go("UP_RIGHT", dist, edge)
             x = self.pos.x-dist
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "DOWN_RIGHT":
-            if edge == "BOTTOM_RIGHT"
+            if edge == "BOTTOM_RIGHT":
                 Go("UP_LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "RIGHT":
-            if edge == "RIGHT_EDGE"
+            if edge == "RIGHT_EDGE":
                 Go("LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y
             self.moveXY(x, y)        
         elif where == "LEFT":
-            if edge == "LEFT_EDGE"
+            if edge == "LEFT_EDGE":
                 Go("RIGHT", dist, edge)
             x = self.pos.x-dist
             y = self.pos.y
@@ -169,7 +169,7 @@ def NumEnemiesAtDistance(dist, etype):
 
 # returns ARRAY of ENEMIES at given distance --------------------
 def GetEnemiesAtDistance(dist, etype):
-    enemies = 0
+    enemies = []
     i = 0
     ene = self.findEnemies()
     for en in ene:
@@ -187,7 +187,7 @@ def GetEnemiesAtDistance(dist, etype):
 
 # returns ARRAY of ENEMIES in bounds
 def GetEnemiesAtBounds(etype, minX, minY, maxX, maxY):
-    enemies = 0
+    enemies = []
     i = 0
     ene = self.findEnemies()
     for en in ene:
@@ -206,8 +206,7 @@ def Kill(e):
     if e:
         while e.health > 0:
             self.attack(e)
-        
-    
+
     
     
 
