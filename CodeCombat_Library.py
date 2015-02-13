@@ -186,7 +186,7 @@ def GetEnemiesAtDistance(dist, etype):
 
 
 # returns ARRAY of ENEMIES in bounds
-def GetEnemiesAtBounds(dist, etype, minX, minY, maxX, maxY):
+def GetEnemiesAtBounds(etype, minX, minY, maxX, maxY):
     enemies = 0
     i = 0
     ene = self.findEnemies()
