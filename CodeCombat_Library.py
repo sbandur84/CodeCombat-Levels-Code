@@ -27,34 +27,50 @@ def GetEdge(offset, minX, minY, maxX, maxY):
 def Go(where, dist, edge):
     if where:
         if where == "UP":
+            if edge == "TOP_EDGE"
+                Go("DOWN", dist, edge)
             x = self.pos.x
             y = self.pos.y+dist
             self.moveXY(x, y)
         elif where == "UP_LEFT":
+            if edge == "TOP_LEFT"
+                Go("DOWN_RIGHT", dist, edge)
             x = self.pos.x - dist
             y = self.pos.y + dist
             self.moveXY(x, y)
         elif where == "UP_RIGHT":
+            if edge == "TOP_RIGHT"
+                Go("DOWN_LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y+dist
             self.moveXY(x, y)
         elif where == "DOWN":
+            if edge == "BOTTOM"
+                Go("UP", dist, edge)
             x = self.pos.x
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "DOWN_LEFT":
+            if edge == "BOTTOM_LEFT"
+                Go("UP_RIGHT", dist, edge)
             x = self.pos.x-dist
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "DOWN_RIGHT":
+            if edge == "BOTTOM_RIGHT"
+                Go("UP_LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y-dist
             self.moveXY(x, y)
         elif where == "RIGHT":
+            if edge == "RIGHT_EDGE"
+                Go("LEFT", dist, edge)
             x = self.pos.x+dist
             y = self.pos.y
             self.moveXY(x, y)        
         elif where == "LEFT":
+            if edge == "LEFT_EDGE"
+                Go("RIGHT", dist, edge)
             x = self.pos.x-dist
             y = self.pos.y
             self.moveXY(x, y)
