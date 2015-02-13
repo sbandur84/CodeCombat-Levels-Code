@@ -206,7 +206,17 @@ def Kill(e):
     if e:
         while e.health > 0:
             self.attack(e)
-
+        
     
     
+    
 
+
+loop:
+    shamans = GetEnemiesAtDistance(30,"shaman")
+    for s in shamans:
+        Kill(s)
+    enemies = GetEnemiesAtDistance(30,0)
+    
+    for e in enemies:
+        Kill(e)
