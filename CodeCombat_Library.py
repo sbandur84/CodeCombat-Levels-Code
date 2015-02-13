@@ -2,10 +2,14 @@
 # -------------------------------------------------------------------------------------------------
 # return true if item is in bounds
 # ( item, leftBound, bottomBound, rightBound, topBound )
-def IsInBounds(item, minX, minY, maxX, maxY):
+def IsInBounds(item, minX, minY, maxX, maxY, goThere):
     x = item.pos.x
     y = item.pos.y
     if y < maxY and y > minY and x < maxX and x > minX:
+        if goThere:
+            nx = minX + ((maxX - minX)/2)
+            ny = minY + ((maxY - minY)/2)
+            self.moveXY(nx, ny)
         return 1
     else:
         return 0
@@ -217,6 +221,5 @@ loop:
     for s in shamans:
         Kill(s)
     enemies = GetEnemiesAtDistance(30,0)
-    
     for e in enemies:
         Kill(e)
