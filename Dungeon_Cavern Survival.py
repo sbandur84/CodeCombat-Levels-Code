@@ -1,11 +1,7 @@
-# playground BOUNDS ----------------------------------------------
-maxX = 67
-maxY = 115
-minX = 10
-minY = 10
-# ----------------------------------------------------------------
-
-# returns NUMBER of ENEMIES at given distance --------------------
+maxX = 155
+maxY = 125
+minX = 95
+minY = 15
 def enemiesAtDistance(dist):
     n = 0
     ene = self.findEnemies()
@@ -13,8 +9,6 @@ def enemiesAtDistance(dist):
         if self.distanceTo(en) < dist:
             n=n+1
     return n
-# ----------------------------------------------------------------
-
 
 def runFrom(enemy):
     distance = 20
@@ -58,13 +52,13 @@ def runFrom(enemy):
     else:
         #beži od sovražnika
         if x < maxX/2 and y < maxY/2:
-            self.moveXY(myX + distance, myY + distance)
-        if x > maxX/2 and enemy.pos.y < maxY/2:
-            self.moveXY(myX - distance, myY + distance)
-        if enemy.pos.x < maxX/2 and y > maxY/2:
-            self.moveXY(myX + distance, myY - distance)
-        if enemy.pos.x > maxX/2 and y > maxY/2:    
-            self.moveXY(myX - distance, myY - distance)
+            self.moveXY(x + distance, y + distance)
+        if x > maxX/2 and y < maxY/2:
+            self.moveXY(x - distance, y + distance)
+        if x < maxX/2 and y > maxY/2:
+            self.moveXY(x + distance, y - distance)
+        if x > maxX/2 and y > maxY/2:    
+            self.moveXY(x - distance, y - distance)
             
 def Kill(e):
     if e:
@@ -86,40 +80,33 @@ loop:
     dte = self.distanceTo(enemy)
     if enemy and enemy.type:
         if merlin:
-            if cleave and enemiesAtDistance(10) > 1:
-                self.cleave(merlin)
-            elif self.distanceTo(merlin) < 50:
-                Kill(merlin)
+            
+            Kill(merlin)
         if shaman:
-            if cleave and enemiesAtDistance(10) > 1:
+            if cleave and enemiesAtDistance(10) > 2:
                 self.cleave(shaman)
             elif self.distanceTo(shaman) < 30:
                 Kill(shaman)
         if thrower:
-            if cleave and enemiesAtDistance(10) > 1:
+            if cleave and enemiesAtDistance(10) > 2:
                 self.cleave(thrower)
             elif self.distanceTo(thrower) < 30:
                 Kill(thrower)
         if ogre:
-            if cleave and self.distanceTo(ogre) < 5:
+            if cleave and self.distanceTo(ogre) < 15:
                 self.cleave(ogre)
-            elif self.distanceTo(ogre) > 5 and self.distanceTo(ogre) < 30:
+            elif self.distanceTo(ogre) < 30:
                 runFrom(ogre)        
-        if enemiesAtDistance(10) > 2 and cleave:
+        if enemiesAtDistance(10) > 3 and cleave:
             self.cleave(enemy)
         elif enemiesAtDistance(10) > 2 and not cleave:
             runFrom(enemy)
-        elif enemiesAtDistance(10) > 1 and not cleave:
+        elif enemiesAtDistance(7) > 1 and not cleave:
             Kill(enemy)
-        elif enemiesAtDistance(10) == 1 and not enemy.type == "ogre":
+        elif enemiesAtDistance(5) == 1 and not enemy.type == "ogre":
             Kill(enemy)
         else:
             runFrom(enemy)
-                    
-                    
-        
-    
-        
-    
+            
     
     
