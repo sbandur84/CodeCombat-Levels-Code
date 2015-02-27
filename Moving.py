@@ -1,10 +1,19 @@
 #STATIC command definitions:
-BOTTOM_LEFT
-LEFT_EDGE
-TOP
-TOP_EDGE
-TOP_RIGHT
-RIGHT_EDGE
+TOP = 1
+TOP_RIGHT = 2
+TOP_RIGHT = 3
+BOTTOM = 4
+BOTTOM_LEFT = 5
+BOTTOM_RIGHT = 6
+RIGHT_EDGE = 7
+LEFT_EDGE = 8
+UP_RIGHT = 9
+UP_LEFT = 10
+DOWN_LEFT = 11
+DOWN_RIGHT = 12
+DOWN = 13
+UP = 14
+LEFT RIGHT = 15
 # COMMON FUNCTIONS LIBRARY FOR CODE COMBAT
 # -------------------------------------------------------------------------------------------------
 # return true if item is in bounds
@@ -21,21 +30,21 @@ def GetEdge(offset, minX, minY, maxX, maxY):
     x = self.pos.x
     y = self.pos.y
     if y < minY + offset and x < minX + offset:
-        return "BOTTOM_LEFT"
+        return BOTTOM_LEFT
     elif x < minX + offset:
-        return "LEFT_EDGE"
+        return LEFT_EDGE
     elif x < minX + offset and y > maxY - offset:
-        return "TOP"
+        return TOP_LEFT
     elif y > maxY - offset:
-        return "TOP_EDGE"
+        return TOP
     elif y > maxY - offset and x > maxX - offset:
-        return "TOP_RIGHT"
+        return TOP_RIGHT
     elif x > maxX - offset:
-        return "RIGHT_EDGE"
+        return RIGHT_EDGE
     elif x > maxX - offset and y < minY + offset:
-        return "BOTTOM_RIGHT"
+        return BOTTOM_RIGHT
     elif y < minY + offset:
-        return "BOTTOM"
+        return BOTTOM
     else:
         return 0
         
@@ -49,28 +58,28 @@ def GoAwayFromEnemyRelativePos(enemy):
         y = self.pos.y
         # enemy is DOWN_LEFT
         if ex < x and ey < y:
-            where = "UP_RIGHT"
+            where = UP_RIGHT
         # enemy is DOWN_RIGHT
         elif ex > x and ey < y:
-            where = "UP_LEFT"
+            where = UP_LEFT
         # enemy is UP_RIGHT
         elif ex > x and ey > y:
-            where = "DOWN_LEFT"
+            where = DOWN_LEFT
         # enemy is UP_LEFT
         elif ex < x and ey > y:
-            where = "DOWN_RIGHT"
+            where = DOWN_RIGHT
         # enemy is UP
         elif ex == x and ey > y:
-            where = "DOWN"
+            where = DOWN
         # enemy is DOWN
         elif ex == x and ey < y:
-            where = "UP"
+            where = UP
         # enemy is RIGHT
         elif ex > x and ey == y:
-            where = "LEFT"
+            where = LEFT
         # enemy is LEFT
         elif ex < x and ey == y:
-            where = "RIGHT"
+            where = RIGHT
         return where
     else:
         return 0
@@ -80,51 +89,51 @@ def GoAwayFromEnemyRelativePos(enemy):
         
 def Go(where, dist, edge):
     if where:
-        if where == "UP":
-            if edge == "TOP_EDGE":
-                Go("DOWN", dist, edge)
+        if where == UP:
+            if edge == TOP_EDGE:
+                Go(DOWN, dist, edge)
             x = self.pos.x
             y = self.pos.y+dist
             self.moveXY(x, y)
-        elif where == "UP_LEFT":
-            if edge == "TOP_LEFT":
-                Go("DOWN_RIGHT", dist, edge)
+        elif where == UP_LEFT:
+            if edge == TOP_LEFT:
+                Go(DOWN_RIGHT, dist, edge)
             x = self.pos.x - dist
             y = self.pos.y + dist
             self.moveXY(x, y)
-        elif where == "UP_RIGHT":
-            if edge == "TOP_RIGHT":
-                Go("DOWN_LEFT", dist, edge)
+        elif where == UP_RIGHT:
+            if edge == TOP_RIGHT:
+                Go(DOWN_LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y+dist
             self.moveXY(x, y)
-        elif where == "DOWN":
-            if edge == "BOTTOM":
-                Go("UP", dist, edge)
+        elif where == DOWN:
+            if edge == BOTTOM:
+                Go(UP, dist, edge)
             x = self.pos.x
             y = self.pos.y-dist
             self.moveXY(x, y)
-        elif where == "DOWN_LEFT":
-            if edge == "BOTTOM_LEFT":
-                Go("UP_RIGHT", dist, edge)
+        elif where == DOWN_LEFT:
+            if edge == BOTTOM_LEFT:
+                Go(UP_RIGHT, dist, edge)
             x = self.pos.x-dist
             y = self.pos.y-dist
             self.moveXY(x, y)
-        elif where == "DOWN_RIGHT":
-            if edge == "BOTTOM_RIGHT":
-                Go("UP_LEFT", dist, edge)
+        elif where == DOWN_RIGHT:
+            if edge == BOTTOM_RIGHT:
+                Go(UP_LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y-dist
             self.moveXY(x, y)
-        elif where == "RIGHT":
-            if edge == "RIGHT_EDGE":
-                Go("LEFT", dist, edge)
+        elif where == RIGHT:
+            if edge == RIGHT_EDGE:
+                Go(LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y
             self.moveXY(x, y)        
-        elif where == "LEFT":
-            if edge == "LEFT_EDGE":
-                Go("RIGHT", dist, edge)
+        elif where == LEFT:
+            if edge == LEFT_EDGE:
+                Go(RIGHT, dist, edge)
             x = self.pos.x-dist
             y = self.pos.y
             self.moveXY(x, y)
@@ -134,22 +143,22 @@ def Go(where, dist, edge):
 # walk around room
 def WalkAround(dist, edge):
     # premikamo se po polju
-    if edge == "BOTTOM_LEFT":
-        Go("UP_RIGHT", dist, edge)
-    elif edge == "LEFT_EDGE":
-        Go("RIGHT", dist, edge)
-    elif edge == "TOP_LEFT":
-        Go("DOWN_RIGHT", dist, edge)
-    elif edge == "TOP":
-        Go("DOWN", dist, edge)
-    elif edge == "TOP_RIGHT":
-        Go("DOWN_LEFT", dist, edge)
-    elif edge == "RIGHT_EDGE":
-        Go("LEFT", dist, edge)
-    elif edge == "BOTTOM_RIGHT":
-        Go("UP_LEFT", dist, edge)
-    elif edge == "BOTTOM":
-        Go("UP", dist, edge)
+    if edge == BOTTOM_LEFT:
+        Go(UP_RIGHT, dist, edge)
+    elif edge == LEFT_EDGE:
+        Go(RIGHT, dist, edge)
+    elif edge == TOP_LEFT:
+        Go(DOWN_RIGHT, dist, edge)
+    elif edge == TOP:
+        Go(DOWN, dist, edge)
+    elif edge == TOP_RIGHT:
+        Go(DOWN_LEFT, dist, edge)
+    elif edge == RIGHT_EDGE:
+        Go(LEFT, dist, edge)
+    elif edge == BOTTOM_RIGHT:
+        Go(UP_LEFT, dist, edge)
+    elif edge == BOTTOM:
+        Go(UP, dist, edge)
 
 
 def RunFrom(enemy, distance, edge):
