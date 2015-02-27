@@ -1,15 +1,18 @@
+#STATIC command definitions:
+BOTTOM_LEFT
+LEFT_EDGE
+TOP
+TOP_EDGE
+TOP_RIGHT
+RIGHT_EDGE
 # COMMON FUNCTIONS LIBRARY FOR CODE COMBAT
 # -------------------------------------------------------------------------------------------------
 # return true if item is in bounds
 # ( item, leftBound, bottomBound, rightBound, topBound )
-def IsInBounds(item, minX, minY, maxX, maxY, goThere):
+def IsInBounds(item, minX, minY, maxX, maxY):
     x = item.pos.x
     y = item.pos.y
     if y < maxY and y > minY and x < maxX and x > minX:
-        if goThere:
-            nx = minX + ((maxX - minX)/2)
-            ny = minY + ((maxY - minY)/2)
-            self.moveXY(nx, ny)
         return 1
     else:
         return 0
