@@ -1,19 +1,20 @@
 #STATIC command definitions:
 TOP = 1
-TOP_RIGHT = 2
-TOP_RIGHT = 3
-BOTTOM = 4
-BOTTOM_LEFT = 5
-BOTTOM_RIGHT = 6
-RIGHT_EDGE = 7
-LEFT_EDGE = 8
-UP_RIGHT = 9
-UP_LEFT = 10
-DOWN_LEFT = 11
-DOWN_RIGHT = 12
-DOWN = 13
-UP = 14
-LEFT RIGHT = 15
+BOTTOM = 2
+RIGHT_EDGE = 3
+LEFT_EDGE = 4
+TOP_RIGHT = 5
+TOP_LEFT = 6
+BOTTOM_RIGHT = 7
+BOTTOM_LEFT = 8
+UP = 9
+DOWN = 10
+RIGHT = 11
+LEFT = 12
+UP_RIGHT = 13
+UP_LEFT = 14
+DOWN_LEFT = 15
+DOWN_RIGHT = 16
 # COMMON FUNCTIONS LIBRARY FOR CODE COMBAT
 # -------------------------------------------------------------------------------------------------
 # return true if item is in bounds
@@ -94,49 +95,49 @@ def Go(where, dist, edge):
                 Go(DOWN, dist, edge)
             x = self.pos.x
             y = self.pos.y+dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == UP_LEFT:
             if edge == TOP_LEFT:
                 Go(DOWN_RIGHT, dist, edge)
             x = self.pos.x - dist
             y = self.pos.y + dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == UP_RIGHT:
             if edge == TOP_RIGHT:
                 Go(DOWN_LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y+dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == DOWN:
             if edge == BOTTOM:
                 Go(UP, dist, edge)
             x = self.pos.x
             y = self.pos.y-dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == DOWN_LEFT:
             if edge == BOTTOM_LEFT:
                 Go(UP_RIGHT, dist, edge)
             x = self.pos.x-dist
             y = self.pos.y-dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == DOWN_RIGHT:
             if edge == BOTTOM_RIGHT:
                 Go(UP_LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y-dist
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
         elif where == RIGHT:
             if edge == RIGHT_EDGE:
                 Go(LEFT, dist, edge)
             x = self.pos.x+dist
             y = self.pos.y
-            self.moveXY(x, y)        
+            self.move({"x":x, "y":y})        
         elif where == LEFT:
             if edge == LEFT_EDGE:
                 Go(RIGHT, dist, edge)
             x = self.pos.x-dist
             y = self.pos.y
-            self.moveXY(x, y)
+            self.move({"x":x, "y":y})
             
 
 
