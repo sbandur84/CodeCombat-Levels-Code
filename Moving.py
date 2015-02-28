@@ -167,3 +167,44 @@ def RunFrom(enemy, distance, edge):
     elif enemy:
         #beži od sovražnika
         Go(GoAwayFromEnemyRelativePos(enemy), distance, edge)    
+
+def fightMoveShaman(enemy):
+    if enemy.pos.y == self.pos.y:
+        if enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x-20,"y":enemy.pos.y+20})
+        else:
+            self.move({"x":enemy.pos.x+20,"y":enemy.pos.y-20})
+            
+    elif enemy.pos.x == self.pos.x:
+        if enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x+20,"y":enemy.pos.y-20})
+        else:
+            self.move({"x":enemy.pos.x-20,"y":enemy.pos.y+20})
+    elif enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x-20,"y":enemy.pos.y+20})
+    elif enemy.pos.x < self.pos.x:
+            self.move({"x":enemy.pos.x+20,"y":enemy.pos.y-20})
+    elif enemy.pos.y > self.pos.y:
+        self.move({"x":enemy.pos.x+20,"y":enemy.pos.y-20})
+    elif enemy.pos.y < self.pos.y:
+        self.move({"x":enemy.pos.x-20,"y":enemy.pos.y+20})
+def fightMove(enemy):
+    if enemy.pos.y == self.pos.y:
+        if enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x-20,"y":enemy.pos.y})
+        else:
+            self.move({"x":enemy.pos.x+20,"y":enemy.pos.y})
+            
+    elif enemy.pos.x == self.pos.x:
+        if enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x,"y":enemy.pos.y-20})
+        else:
+            self.move({"x":enemy.pos.x,"y":enemy.pos.y+20})
+    elif enemy.pos.x > self.pos.x:
+            self.move({"x":enemy.pos.x-20,"y":enemy.pos.y})
+    elif enemy.pos.x < self.pos.x:
+            self.move({"x":enemy.pos.x+20,"y":enemy.pos.y})
+    elif enemy.pos.y > self.pos.y:
+        self.move({"x":enemy.pos.x,"y":enemy.pos.y-20})
+    elif enemy.pos.y < self.pos.y:
+        self.move({"x":enemy.pos.x,"y":enemy.pos.y+20})
