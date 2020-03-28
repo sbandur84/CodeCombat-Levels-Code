@@ -16,7 +16,7 @@ def Kill(e):
 
 
 
-hero.moveXY(30, 105)
+
 
 
 while True:
@@ -33,25 +33,34 @@ while True:
     THROWER = hero.findNearest(THROWER)
     MUNCHKIN = hero.findByType("munchkin")
     MUNCHKIN = hero.findNearest(MUNCHKIN)
+    FANGRIDER = hero.findByType("fangrider")
+    FANGRIDER = hero.findNearest(FANGRIDER)
     ENEMY = hero.findNearestEnemy()
     HERO = [e for e in self.findEnemies() if e.id in ["Hero Placeholder", "Hero Placeholder 1"]][0]
     
     
-    
-    if OGRE and self.distanceTo(OGRE) < 20:
+    if FANGRIDER and self.distanceTo(FANGRIDER) < 50 and FANGRIDER.health > 0:
+        if hero.canCast("chain-lightning", FANGRIDER):
+            self.cast("chain-lightning", FANGRIDER)
+        elif FANGRIDER.health > 0:
+            self.attack(FANGRIDER)
+    elif OGRE and self.distanceTo(OGRE) < 20:
         if hero.canCast("chain-lightning", OGRE):
             self.cast("chain-lightning", OGRE)
         elif OGRE.health > 0:
-            self.bash(OGRE)
-            self.attack(OGRE)
-    elif THROWER and self.distanceTo(THROWER) < 40:
-        if hero.canCast("chain-lightning", THROWER):
-            hero.cast("chain-lightning", THROWER)
-        elif THROWER.health > 0:
+            hero.shield()
+            if hero.isReady("bash"):
+                self.bash(OGRE)
+                self.shield()
+            if OGRE.health > 0:
+                self.attack(OGRE)
+                self.shield()
+    elif THROWER and self.distanceTo(THROWER) < 30:
+        if THROWER.health > 0:
             self.attack(THROWER)
     elif BRAWLER and self.distanceTo(BRAWLER) < 20:
         self.attack(BRAWLER)
-    if HERO and self.distanceTo(HERO) < 15:
+    elif HERO and self.distanceTo(HERO) < 15:
         if hero.canCast("chain-lightning", HERO):
             self.cast("chain-lightning", HERO)
         elif HERO.health > 0:
@@ -59,14 +68,14 @@ while True:
             self.shield()
             self.attack(HERO)
         self.attack(hero.findNearestEnemy())
-    elif MERLIN and self.distanceTo(MERLIN) < 20:
+    elif MERLIN and self.distanceTo(MERLIN) < 20 and MERLIN.health > 0:
            self.attack(MERLIN)
-    elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 20:
+    elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 20 and MUNCHKIN.health > 0:
             self.attack(MUNCHKIN)
-    elif SHAMAN and self.distanceTo(SHAMAN) < 20:
-        if hero.isReady("cleave"):
-            self.cleave(SHAMAN)
+    elif SHAMAN and self.distanceTo(SHAMAN) < 50:
+        if hero.canCast("chain-lightning", SHAMAN):
+            self.cast("chain-lightning", SHAMAN)
         if SHAMAN.health > 0:
             self.attack(SHAMAN)
-    elif ENEMY and self.distanceTo(ENEMY) < 10 and ENEMY.health < 1:
+    elif ENEMY and self.distanceTo(ENEMY) < 10 and ENEMY.health > 1:
         self.attack(ENEMY)
