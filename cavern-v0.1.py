@@ -1,4 +1,3 @@
-
 # returns NUMBER of ENEMIES at given distance --------------------
 def enemiesAtDistance(dist):
     n = 0
@@ -13,48 +12,49 @@ def Kill(e):
     if e:
         while e.health > 0:
             self.attack(e)
-            
+    return
+
+
+
+
+
+
 while True:
-    enemies = self.findEnemies()
-    enemy = self.findNearest(enemies)
-    shamans = self.findByType("shaman")
-    shaman = self.findNearest(shamans)
-    throwers = self.findByType("thrower")
-    thrower = self.findNearest(throwers)
-    ogres = self.findByType("ogre")
-    ogre = self.findNearest(ogres)
-    brawlers = self.findByType("brawler")
-    brawler = self.findNearest(brawlers)
-    merlins = self.findByType("fangrider")
-    merlin = self.findNearest(merlins)
-    cleave = self.isReady("cleave")
-    dte = self.distanceTo(enemy)
-    if enemy and enemy.type:
-        if brawler and self.distanceTo(brawler) < 20:
-            self.cast("chain-lightning", brawler)
-            Kill(brawler)
-        if merlin:
-            if cleave and enemiesAtDistance(10) > 1:
-                self.cleave(merlin)
-            elif self.distanceTo(merlin) < 50:
-                Kill(merlin)
-        if shaman:
-            if cleave and enemiesAtDistance(10) > 1:
-                self.cleave(shaman)
-            elif self.distanceTo(shaman) < 30:
-                Kill(shaman)
-        if thrower:
-            if cleave and enemiesAtDistance(10) > 1:
-                self.cleave(thrower)
-            elif self.distanceTo(thrower) < 30:
-                Kill(thrower)
-        if ogre and self.distanceTo(ogre) < 20:
-            self.attack(ogre)
-            self.cast("chain-lightning", ogre)      
-        if enemiesAtDistance(10) > 2 and cleave:
-            self.cleave(enemy)
-        elif enemiesAtDistance(10) == 1 and not enemy.type == "ogre":
-            Kill(enemy)
-        else:
-            self.attack(enemy)
-            
+    
+    SHAMAN = hero.findByType("shaman")
+    SHAMAN = hero.findNearest(SHAMAN)
+    OGRE = hero.findByType("ogre")
+    OGRE = hero.findNearest(OGRE)
+    BRAWLER = hero.findByType("brawler")
+    BRAWLER = hero.findNearest(BRAWLER)
+    MERLIN = hero.findByType("merlin")
+    MERLIN = hero.findNearest(MERLIN)
+    THROWER = hero.findByType("thrower")
+    THROWER = hero.findNearest(THROWER)
+    MUNCHKIN = hero.findByType("munchkin")
+    MUNCHKIN = hero.findNearest(SHAMAN)
+    
+    
+    
+    if OGRE and self.distanceTo(OGRE) < 20:
+        self.cast("chain-lightning", OGRE)
+        self.attack(OGRE)
+    elif THROWER and self.distanceTo(THROWER) < 40:
+        if hero.isReady("cleave":
+            self.cleave(THROWER)
+        if
+        self.attack(THROWER)
+    elif BRAWLER and self.distanceTo(BRAWLER) < 20:
+        self.attack(BRAWLER)
+    elif merlin and self.distanceTo(merlin) < 20:
+           self.attack(merlin)
+    elif munchkin and self.distanceTo(munchkin) < 20:
+            self.attack(munchkin)
+    elif shaman and self.distanceTo(shaman) < 20:
+        if cleave:
+            self.cleave(shaman)
+        self.attack(shaman)
+    
+    elif enemy and self.distanceTo(enemy) < 10 and enemy.health < 1:
+        self.attack(enemy)
+   
