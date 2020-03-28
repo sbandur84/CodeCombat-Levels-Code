@@ -16,7 +16,7 @@ def Kill(e):
 
 
 
-
+hero.moveXY(30, 105)
 
 
 while True:
@@ -34,6 +34,7 @@ while True:
     MUNCHKIN = hero.findByType("munchkin")
     MUNCHKIN = hero.findNearest(MUNCHKIN)
     ENEMY = hero.findNearestEnemy()
+    HERO = [e for e in self.findEnemies() if e.id in ["Hero Placeholder", "Hero Placeholder 1"]][0]
     
     
     
@@ -50,6 +51,14 @@ while True:
             self.attack(THROWER)
     elif BRAWLER and self.distanceTo(BRAWLER) < 20:
         self.attack(BRAWLER)
+    if HERO and self.distanceTo(HERO) < 15:
+        if hero.canCast("chain-lightning", HERO):
+            self.cast("chain-lightning", HERO)
+        elif HERO.health > 0:
+            self.bash(HERO)
+            self.shield()
+            self.attack(HERO)
+        self.attack(hero.findNearestEnemy())
     elif MERLIN and self.distanceTo(MERLIN) < 20:
            self.attack(MERLIN)
     elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 20:
@@ -61,4 +70,3 @@ while True:
             self.attack(SHAMAN)
     elif ENEMY and self.distanceTo(ENEMY) < 10 and ENEMY.health < 1:
         self.attack(ENEMY)
-   
