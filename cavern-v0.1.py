@@ -24,6 +24,8 @@ def castLightning(enemy):
     if hero.canCast("chain-lightning", enemy):
         hero.cast("chain-lightning", enemy)
 
+INITIALPOSITION = hero.pos;
+
 
 while True:
     
@@ -52,7 +54,9 @@ while True:
         castLightning(HERO)
         if HERO.health > 0:
             attack(HERO)
-    elif BURL and self.distanceTo(BURL) < 10:
+    elif hero.distanceTo(ENEMY) < 10:
+        attack(ENEMY)
+    elif BURL and self.distanceTo(BURL) < 15:
         castLightning(BURL)
         if BURL.health > 0:
             if hero.isReady("bash"):
@@ -61,7 +65,7 @@ while True:
                 self.bash(BURL)
             if BURL.health > 0:
                 attack(BURL)
-    elif OGRE and self.distanceTo(OGRE) < 10:
+    elif OGRE and self.distanceTo(OGRE) < 15:
         castLightning(OGRE)
         if OGRE.health > 0:
             if hero.isReady("bash"):
@@ -70,7 +74,8 @@ while True:
                 self.bash(OGRE)
             if OGRE.health > 0:
                 attack(OGRE)
-    elif FANGRIDER and self.distanceTo(FANGRIDER) < 50:
+    elif FANGRIDER and self.distanceTo(FANGRIDER) < 60:
+        hero.jumpTo(FANGRIDER.pos)
         castLightning(FANGRIDER)
         if FANGRIDER.health > 0:
             if hero.canElectrocute(FANGRIDER):
