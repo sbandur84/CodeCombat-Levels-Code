@@ -25,7 +25,7 @@ def castLightning(enemy):
         hero.cast("chain-lightning", enemy)
 
 INITIALPOSITION = hero.pos;
-
+hero.moveXY(73, 68)
 
 while True:
     
@@ -50,7 +50,7 @@ while True:
     ENEMY = hero.findNearestEnemy()
     HERO = [e for e in self.findEnemies() if e.id in ["Hero Placeholder", "Hero Placeholder 1"]][0]
     
-    if HERO and self.distanceTo(HERO) < 8:
+    if HERO and self.distanceTo(HERO) < 50:
         castLightning(HERO)
         if HERO.health > 0:
             attack(HERO)
