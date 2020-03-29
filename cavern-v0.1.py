@@ -14,9 +14,11 @@ def Kill(e):
             self.attack(e)
     return
 
-
-
-hero.moveXY(30, 100)
+def attack(enemy):
+    if hero.isReady("attack"):
+        hero.attack(enemy)
+    else:
+        hero.shield()
 
 
 while True:
@@ -47,29 +49,22 @@ while True:
         if hero.canCast("chain-lightning", BURL):
             self.cast("chain-lightning", BURL)
         elif BURL.health > 0:
-            hero.shield()
             if hero.isReady("bash"):
                 if hero.canElectrocute(BURL):
                     hero.electrocute(BURL)
                 self.bash(BURL)
-                self.shield()
-                
             if BURL.health > 0:
-                self.attack(BURL)
-                self.shield()
+                attack(BURL)
     elif OGRE and self.distanceTo(OGRE) < 20:
         if hero.canCast("chain-lightning", OGRE):
             self.cast("chain-lightning", OGRE)
         elif OGRE.health > 0:
-            hero.shield()
             if hero.isReady("bash"):
                 if hero.canElectrocute(OGRE):
                     hero.electrocute(OGRE)
                 self.bash(OGRE)
-                self.shield()
             if OGRE.health > 0:
-                self.attack(OGRE)
-                self.shield()
+                attack(OGRE)
     elif FANGRIDER and self.distanceTo(FANGRIDER) < 50 and FANGRIDER.health > 0:
         if hero.canCast("chain-lightning", FANGRIDER):
             self.cast("chain-lightning", FANGRIDER)
@@ -94,9 +89,9 @@ while True:
         elif HERO.health > 0:
             if hero.canElectrocute(HERO):
                 hero.electrocute(HERO)
-            self.bash(HERO)
-            self.shield()
-            self.attack(HERO)
+            if hero.isReady("bash"):
+                self.bash(HERO)
+            attack(HERO)
         self.attack(hero.findNearestEnemy())
     elif MERLIN and self.distanceTo(MERLIN) < 20 and MERLIN.health > 0:
            self.attack(MERLIN)
