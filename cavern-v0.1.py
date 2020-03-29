@@ -54,7 +54,7 @@ while True:
         castLightning(HERO)
         if HERO.health > 0:
             attack(HERO)
-    elif hero.distanceTo(ENEMY) < 10:
+    elif ENEMY and hero.distanceTo(ENEMY) < 10:
         attack(ENEMY)
     elif BURL and self.distanceTo(BURL) < 15:
         castLightning(BURL)
