@@ -19,8 +19,10 @@ def attack(enemy):
         hero.attack(enemy)
     elif hero.isReady("bash") and enemy.health > 0:
         hero.bash(enemy)
-    else:
-        hero.shield()
+        
+def castLightning(enemy):
+    if hero.canCast("chain-lightning", enemy):
+        hero.cast("chain-lightning", enemy)
 
 
 while True:
@@ -47,43 +49,33 @@ while True:
     HERO = [e for e in self.findEnemies() if e.id in ["Hero Placeholder", "Hero Placeholder 1"]][0]
     
     if HERO and self.distanceTo(HERO) < 8:
-        if hero.canCast("chain-lightning", HERO):
-            self.cast("chain-lightning", HERO)
-        elif HERO.health > 0:
-            if hero.canElectrocute(HERO):
-                hero.electrocute(HERO)
-            if hero.isReady("bash"):
-                self.bash(HERO)
+        castLightning(HERO)
+        if HERO.health > 0:
             attack(HERO)
-        self.attack(hero.findNearestEnemy())
-    elif BURL and self.distanceTo(BURL) < 20:
-        if hero.canCast("chain-lightning", BURL):
-            self.cast("chain-lightning", BURL)
-        elif BURL.health > 0:
+    elif BURL and self.distanceTo(BURL) < 10:
+        castLightning(BURL)
+        if BURL.health > 0:
             if hero.isReady("bash"):
                 if hero.canElectrocute(BURL):
                     hero.electrocute(BURL)
                 self.bash(BURL)
             if BURL.health > 0:
                 attack(BURL)
-    elif OGRE and self.distanceTo(OGRE) < 20:
-        if hero.canCast("chain-lightning", OGRE):
-            self.cast("chain-lightning", OGRE)
-        elif OGRE.health > 0:
+    elif OGRE and self.distanceTo(OGRE) < 10:
+        castLightning(OGRE)
+        if OGRE.health > 0:
             if hero.isReady("bash"):
                 if hero.canElectrocute(OGRE):
                     hero.electrocute(OGRE)
                 self.bash(OGRE)
             if OGRE.health > 0:
                 attack(OGRE)
-    elif FANGRIDER and self.distanceTo(FANGRIDER) < 50 and FANGRIDER.health > 0:
-        if hero.canCast("chain-lightning", FANGRIDER):
-            self.cast("chain-lightning", FANGRIDER)
-        elif FANGRIDER.health > 0:
+    elif FANGRIDER and self.distanceTo(FANGRIDER) < 50:
+        castLightning(FANGRIDER)
+        if FANGRIDER.health > 0:
             if hero.canElectrocute(FANGRIDER):
                 hero.electrocute(FANGRIDER)
-            self.attack(FANGRIDER)
-
+            attack(FANGRIDER)
     elif THROWER and self.distanceTo(THROWER) < 30:
         if THROWER.health > 0:
             attack(THROWER)
@@ -100,9 +92,6 @@ while True:
     elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 20 and MUNCHKIN.health > 0:
         attack(MUNCHKIN)
     elif SHAMAN and self.distanceTo(SHAMAN) < 50:
-        if hero.canCast("chain-lightning", SHAMAN):
-            self.cast("chain-lightning", SHAMAN)
-        if SHAMAN.health > 0:
-            attack(SHAMAN)
+        attack(SHAMAN)
     elif ENEMY and self.distanceTo(ENEMY) < 10 and ENEMY.health > 1:
         attack(ENEMY)
