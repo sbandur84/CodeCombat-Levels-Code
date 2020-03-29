@@ -50,10 +50,17 @@ while True:
     ENEMY = hero.findNearestEnemy()
     HERO = [e for e in self.findEnemies() if e.id in ["Hero Placeholder", "Hero Placeholder 1"]][0]
     
-    if HERO and self.distanceTo(HERO) < 50:
+    if HERO and self.distanceTo(HERO) < 20:
         castLightning(HERO)
-        if HERO.health > 0:
+        while HERO.health > 0:
             attack(HERO)
+            hero.shield()
+            
+            e = hero.findNearestEnemy()
+            if hero.distanceTo(e)<5:
+                hero.attack(e)
+            if hero.canElectrocute(HERO):
+                hero.electrocute(HERO)
     elif ENEMY and hero.distanceTo(ENEMY) < 10:
         attack(ENEMY)
     elif BURL and self.distanceTo(BURL) < 15:
@@ -75,9 +82,11 @@ while True:
             if OGRE.health > 0:
                 attack(OGRE)
     elif FANGRIDER and self.distanceTo(FANGRIDER) < 60:
-        hero.jumpTo(FANGRIDER.pos)
         castLightning(FANGRIDER)
-        if FANGRIDER.health > 0:
+        e = hero.findNearestEnemy()
+        if hero.distanceTo(e)<2:
+                attack(e)
+        elif FANGRIDER.health > 0:
             if hero.canElectrocute(FANGRIDER):
                 hero.electrocute(FANGRIDER)
             attack(FANGRIDER)
