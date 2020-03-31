@@ -8,11 +8,7 @@ def enemiesAtDistance(dist):
     return n
 # ----------------------------------------------------------------
 
-def Kill(e):
-    if e:
-        while e.health > 0:
-            self.attack(e)
-    return
+
 
 def attack(enemy):
     if hero.isReady("attack"):
@@ -22,6 +18,12 @@ def attack(enemy):
     else:
         hero.shield()
             
+            
+def kill(e):
+    if e:
+        while e.health > 0:
+            attack(e)
+    return
         
 def castLightning(enemy):
     if hero.canCast("chain-lightning", enemy):
@@ -37,11 +39,7 @@ INITIALPOSITION = hero.pos;
 
 CIRCLE=[ [110, 90], [125, 79], [125, 57], [115, 46], [105, 46], [95, 57], [95, 79], [105, 91]]
 
-def MoveInCircle(side, CIR, POS):
-    target=hero.findNearestEnemy()
-    if hero.distanceTo(target) < 4:
-        attack(target)
-        
+def MoveInCircle(side, CIR, POS):    
     if side == "LEFT":
         hero.moveXY( CIR[POS][0] - 60,CIR[POS][1] )
     else:
@@ -52,15 +50,23 @@ def MoveInCircle(side, CIR, POS):
     else:
         POS=0
     return POS
-        
+MYSIDE=""
+ENEMYSIDE=""
 SIDE=""
 if hero.pos.x < 80:
-    SIDE="LEFT"      
+    MYSIDE="LEFT"
+    SIDE="LEFT"
+    ENEMYSIDE="RIGHT"
 else:
+    MYSIDE="RIGHT"
     SIDE="RIGHT"
-C_POS=0     
+    ENEMYSIDE="LEFT"
+C_POS=2  
+
+hero.shield()
+
+
 while True:
-     
     
     SHAMAN = hero.findByType("shaman")
     SHAMAN = hero.findNearest(SHAMAN)
@@ -85,27 +91,45 @@ while True:
     
     
         
-    if enemiesAtDistance(30) > 2:
+    if enemiesAtDistance(30) > 1:
+        
+            
         if THROWER and self.distanceTo(THROWER) < 20:
             castLightning(THROWER)
-            if THROWER.health > 0:
-                attack(THROWER)
+            target=hero.findNearestEnemy()
+            if hero.distanceTo(target) < 4 and hero.distanceTo(THROWER) > 15:
+                attack(target)
+            kill(THROWER)
         elif SHAMAN and self.distanceTo(SHAMAN) < 20:
             castLightning(SHAMAN)
-            if SHAMAN.health > 0:
-                attack(SHAMAN)
+            target=hero.findNearestEnemy()
+            if hero.distanceTo(target) < 4 and hero.distanceTo(SHAMAN) > 15:
+                attack(target)
+            kill(SHAMAN)
+        elif enemiesAtDistance(20) > 4: 
+            
+            C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
+            target=hero.findNearestEnemy()
+            if hero.distanceTo(target) < 5:
+                kill(target)
+        elif enemiesAtDistance(18) > 1:
+            if hero.distanceTo(ENEMY) < 4:
+                attack(ENEMY)
+                if hero.isReady("invisibility"):
+                    hero.cast("invisibility", hero)
+            C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
+            
+                
         elif FANGRIDER and self.distanceTo(FANGRIDER) < 10:
             castLightning(FANGRIDER)
             e = hero.findNearestEnemy()
-            if hero.distanceTo(e)<4:
-                    attack(e)
-            elif FANGRIDER.health > 0:
+            if hero.distanceTo(e)<4 and hero.distanceTo(FANGRIDER) > 15:
+                    kill(e)
+            if FANGRIDER.health > 0:
                 attack(FANGRIDER)
         elif ENEMY and hero.canCast("chain-lightning", ENEMY):
             castLightning(ENEMY)
-        elif enemiesAtDistance(18) > 1:
-            attack(ENEMY)
-            C_POS=MoveInCircle(SIDE, CIRCLE, C_POS)
+        
                     
         elif HERO and self.distanceTo(HERO) < 5 :
             castLightning(HERO)
@@ -131,16 +155,14 @@ while True:
                 if OGRE.health > 0:
                     attack(OGRE)
         
-        elif SKELETON and self.distanceTo(SKELETON) < 20:
-            if hero.canElectrocute(OGRE):
-                hero.electrocute(OGRE)
+        elif SKELETON and self.distanceTo(SKELETON) < 8:
             attack(SKELETON)
-        elif BRAWLER and self.distanceTo(BRAWLER) < 20:
+        elif BRAWLER and self.distanceTo(BRAWLER) < 8:
             attack(BRAWLER)
-        elif MERLIN and self.distanceTo(MERLIN) < 20 and MERLIN.health > 0:
+        elif MERLIN and self.distanceTo(MERLIN) < 8 and MERLIN.health > 0:
             attack(MERLIN)
-        elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 20 and MUNCHKIN.health > 0:
+        elif MUNCHKIN and self.distanceTo(MUNCHKIN) < 8 and MUNCHKIN.health > 0:
             attack(MUNCHKIN)
         
-    elif ENEMY and self.distanceTo(ENEMY) < 20 and ENEMY.health > 2:
+    elif ENEMY and self.distanceTo(ENEMY) < 200 and ENEMY.health > 10:
         attack(ENEMY)
