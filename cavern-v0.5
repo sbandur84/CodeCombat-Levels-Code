@@ -26,7 +26,7 @@ def kill(e):
     return
         
 def castLightning(enemy):
-    if hero.canCast("chain-lightning", enemy):
+    if enemy and hero.canCast("chain-lightning", enemy) :
         hero.cast("chain-lightning", enemy)
 
 
@@ -71,7 +71,7 @@ hero.shield()
 
 
 while True:
-    
+    hero.shield() 
     SHAMAN = hero.findByType("shaman")
     SHAMAN = hero.findNearest(SHAMAN)
     HEADHUNTER = hero.findByType("headhunter")
@@ -103,7 +103,8 @@ while True:
             hero.shield()
             hero.say("I AM NOT RAEDY!!")
         elif enemiesAtDistance(20) > 7: 
-            
+            if hero.isReady("invisibility"):
+                hero.cast("invisibility", hero)
             C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
             target=hero.findNearestEnemy()
             if hero.distanceTo(target) < 4:
