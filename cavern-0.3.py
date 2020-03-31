@@ -70,6 +70,8 @@ while True:
     
     SHAMAN = hero.findByType("shaman")
     SHAMAN = hero.findNearest(SHAMAN)
+    HEADHUNTER = hero.findByType("headhunter")
+    HEADHUNTER = hero.findNearest(HEADHUNTER)
     SKELETON = hero.findByType("skeleton")
     SKELETON = hero.findNearest(SKELETON)
     OGRE = hero.findByType("ogre")
@@ -93,13 +95,37 @@ while True:
         
     if enemiesAtDistance(30) > 1:
         
-            
-        if THROWER and self.distanceTo(THROWER) < 20:
-            castLightning(THROWER)
+        if hero.distanceTo(ENEMY) < 6 and (not hero.isReady("attack")) and (not hero.isReady("bash")):
+            hero.shield()
+            hero.say("I AM NOT RAEDY!!")
+        elif enemiesAtDistance(20) > 7: 
+            if hero.isReady("invisibility"):
+                    hero.cast("invisibility", hero)
+            C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
             target=hero.findNearestEnemy()
-            if hero.distanceTo(target) < 4 and hero.distanceTo(THROWER) > 15:
+            if hero.distanceTo(target) < 4:
                 attack(target)
-            kill(THROWER)
+                
+            if FANGRIDER:
+                castLightning(FANGRIDER)
+            if HEADHUNTER:
+                castLightning(SHAMAN)
+            if SHAMAN:
+                castLightning(SHAMAN)
+            if THROWER:
+                castLightning(THROWER)
+        elif HEADHUNTER and self.distanceTo(HEADHUNTER) < 20:
+            castLightning(HEADHUNTER)
+            if HEADHUNTER.health > 0:
+                attack(HEADHUNTER)
+        elif FANGRIDER and self.distanceTo(FANGRIDER) < 20:
+            castLightning(FANGRIDER)
+            if FANGRIDER.health > 0:
+                attack(FANGRIDER)
+        elif THROWER and self.distanceTo(THROWER) < 20:
+            castLightning(THROWER)
+            if THROWER.health > 0:
+                attack(THROWER)
         elif SHAMAN and self.distanceTo(SHAMAN) < 20:
             castLightning(SHAMAN)
             target=hero.findNearestEnemy()
@@ -107,26 +133,20 @@ while True:
                 attack(target)
             kill(SHAMAN)
         elif enemiesAtDistance(20) > 4: 
-            
+            if hero.isReady("invisibility"):
+                    hero.cast("invisibility", hero)
             C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
             target=hero.findNearestEnemy()
             if hero.distanceTo(target) < 5:
-                kill(target)
+                attack(target)
         elif enemiesAtDistance(18) > 1:
             if hero.distanceTo(ENEMY) < 4:
                 attack(ENEMY)
-                if hero.isReady("invisibility"):
-                    hero.cast("invisibility", hero)
+                
             C_POS=MoveInCircle(MYSIDE, CIRCLE, C_POS)
             
                 
-        elif FANGRIDER and self.distanceTo(FANGRIDER) < 10:
-            castLightning(FANGRIDER)
-            e = hero.findNearestEnemy()
-            if hero.distanceTo(e)<4 and hero.distanceTo(FANGRIDER) > 15:
-                    kill(e)
-            if FANGRIDER.health > 0:
-                attack(FANGRIDER)
+        
         elif ENEMY and hero.canCast("chain-lightning", ENEMY):
             castLightning(ENEMY)
         
